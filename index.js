@@ -1,13 +1,38 @@
-let arr = document.querySelectorAll("button");
-let listAudio = ["crash.mp3","kick-bass.mp3","snare.mp3","tom-1.mp3","tom-2.mp3","tom-3.mp3","tom-4.mp3"];
+const btns = document.querySelectorAll(".drum");
 
-arr.forEach( (btn, key)=>{
-	document.addEventListener("keydown", event =>{
-        if(btn.textContent == event.key) {
-            let audio = new Audio(`sounds/${listAudio[key]}`);
-            audio.play(); 
-        }   
-    });
-    
+const takeBgName = (x) => {
+  const compuStyled = window.getComputedStyle(x);
+  const bgImage = compuStyled.getPropertyValue("background-image");
+  const bgNameMatch = bgImage.match(/\/([^/]+)\.png/);
+  const bgName = bgNameMatch ? bgNameMatch[1] : null;
+  return bgName;
+};
+
+const btnAnimate = (currentBtn) => {
+  currentBtn.classList.add("pressed");
+  setTimeout(function () {
+    currentBtn.classList.remove("pressed");
+  }, 100);
+};
+const audioCache = {};
+btns.forEach((btn) => {
+  const bgName = takeBgName(btn);
+  audioCache[bgName] = new Audio(`sounds/${bgName}.mp3`);
 });
 
+function handleEvent(btn) {
+  const bgName = takeBgName(btn);
+  btnAnimate(btn);
+  audioCache[bgName].play();
+}
+
+btns.forEach((btn) => {
+  btn.addEventListener("click", function () {
+    handleEvent(btn);
+  });
+  document.addEventListener("keydown", (event) => {
+    if (btn.textContent == event.key) {
+      handleEvent(btn);
+    }
+  });
+});

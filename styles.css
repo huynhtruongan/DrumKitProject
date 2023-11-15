@@ -17,30 +17,36 @@ footer {
 }
 
 .w {
-
+background-image: url(images/crash.png);
 }
 
 .a {
+  background-image: url(images/kick-bass.png);
 
 }
 
 .s {
+  background-image: url(images/snare.png);
 
 }
 
 .d {
+  background-image: url(images/tom-1.png);
 
 }
 
 .j {
+  background-image: url(images/tom-2.png);
 
 }
 
 .k {
+  background-image: url(images/tom-3.png);
 
 }
 
 .l {
+  background-image: url(images/tom-4.png);
 
 }
 
